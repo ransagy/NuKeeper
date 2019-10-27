@@ -23,5 +23,7 @@ namespace NuKeeper.Abstractions.Configuration
         public string Directory { get; set; }
 
         public string GitPath { get; set; }
+
+        public bool AllowPartialUpdates { get; set; }
     }
 }

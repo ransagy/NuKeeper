@@ -14,6 +14,10 @@ namespace NuKeeper.Commands
             Description = "Maximum number of package updates to make. Defaults to 1.")]
         public int? MaxPackageUpdates { get; set; }
 
+        [Option(CommandOptionType.SingleValue, ShortName = "p", LongName = "allowpartialupdates",
+            Description = "Maximum number of package updates to make. Defaults to 1.")]
+        public bool? AllowPartialUpdates { get; set; }
+
         private readonly ILocalEngine _engine;
 
         public UpdateCommand(ILocalEngine engine, IConfigureLogger logger, IFileSettingsCache fileSettingsCache)
@@ -38,12 +42,20 @@ namespace NuKeeper.Commands
                 fileSettings.MaxPackageUpdates,
                 defaultMaxPackageUpdates);
 
+            const bool defaultAllowPartialUpdates = false;
+            var partialUpdates = Concat.FirstValue(
+                AllowPartialUpdates,
+                fileSettings.AllowPartialUpdates,
+                defaultAllowPartialUpdates);
+
             if (maxUpdates < 1)
             {
                 return ValidationResult.Failure($"Max package updates of {maxUpdates} is not valid");
             }
 
             settings.PackageFilters.MaxPackageUpdates = maxUpdates;
+            settings.UserSettings.AllowPartialUpdates = partialUpdates;
+
             return ValidationResult.Success;
         }
 

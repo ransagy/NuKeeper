@@ -53,18 +53,13 @@ namespace NuKeeper.Local
                 return;
             }
 
-            await ApplyUpdates(filtered, workingFolder, sources);
-        }
-
-        private async Task ApplyUpdates(IReadOnlyCollection<PackageUpdateSet> updates, IFolder workingFolder, NuGetSources sources)
-        {
             await _solutionsRestore.CheckRestore(updates, workingFolder, sources);
 
             foreach (var update in updates)
             {
                 _logger.Minimal("Updating " + Description.ForUpdateSet(update));
 
-                await _updateRunner.Update(update, sources);
+                await _updateRunner.Update(update, sources, settings);
             }
         }
     }

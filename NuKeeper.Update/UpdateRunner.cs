@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NuKeeper.Abstractions.Configuration;
 using NuKeeper.Abstractions.Logging;
 using NuKeeper.Abstractions.NuGet;
 using NuKeeper.Abstractions.RepositoryInspection;
@@ -38,7 +39,7 @@ namespace NuKeeper.Update
             _updateDirectoryBuildTargetsCommand = updateDirectoryBuildTargetsCommand;
         }
 
-        public async Task Update(PackageUpdateSet updateSet, NuGetSources sources)
+        public async Task Update(PackageUpdateSet updateSet, NuGetSources sources, SettingsContainer settings)
         {
             var sortedUpdates = Sort(updateSet.CurrentPackages);
 

@@ -44,6 +44,8 @@ namespace NuKeeper.Abstractions.Configuration
 
         public string GitCliPath { get; set; }
 
+        public bool? AllowPartialUpdates { get; set; }
+
         public static FileSettings Empty()
         {
             return new FileSettings();
