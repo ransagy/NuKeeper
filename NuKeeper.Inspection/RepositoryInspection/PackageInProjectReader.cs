@@ -27,7 +27,8 @@ namespace NuKeeper.Inspection.RepositoryInspection
 
             if (string.IsNullOrWhiteSpace(version))
             {
-                _logger.Normal($"Skipping package '{id}' with no version specified in file '{path.FullName}'.");
+                // TODO this is very spammy when using MSBuild Directory.build.props or .targets files for versioning NuGets. Should find a better way for this.
+                _logger.Detailed($"Skipping package '{id}' with no version specified in file '{path.FullName}'.");
                 return null;
             }
 
